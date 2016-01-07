@@ -1,0 +1,6 @@
+[
+    {
+        "caption": "Project: Clear Excluded Files and Folders",
+        "command": "exclude_path_clear_project"
+    }
+]
