@@ -29,8 +29,8 @@ class ExcludePathIndexCommand(SidebarSelectionCommand):
 
 class ExcludePathProjectCommand(SidebarSelectionCommand):
     def handle(self, files, folders):
-        data = sublime.active_window().project_data()
-        project_file_name = sublime.active_window().project_file_name()
+        data = self.window.project_data()
+        project_file_name = self.window.project_file_name()
         for folder in data['folders']:
             if "folder_exclude_patterns" not in folder:
                 folder["folder_exclude_patterns"] = []
@@ -45,13 +45,15 @@ class ExcludePathProjectCommand(SidebarSelectionCommand):
             for d in folders:
                 if d.find(project_path) == 0 and d not in folder["folder_exclude_patterns"]:
                     folder["folder_exclude_patterns"].append(d)
-        sublime.active_window().set_project_data(data)
+        self.window.set_project_data(data)
 
 
 class ExcludePathClearProjectCommand(sublime_plugin.WindowCommand):
     def run(self):
-        data = sublime.active_window().project_data()
+        data = self.window.project_data()
         for folder in data['folders']:
-            del(folder["folder_exclude_patterns"])
-            del(folder["file_exclude_patterns"])
-        sublime.active_window().set_project_data(data)
+            if "folder_exclude_patterns" in folder:
+                del(folder["folder_exclude_patterns"])
+            if "file_exclude_patterns" in folder:
+                del(folder["file_exclude_patterns"])
+        self.window.set_project_data(data)
