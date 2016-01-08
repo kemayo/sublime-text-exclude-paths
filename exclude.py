@@ -38,7 +38,6 @@ class ExcludePathProjectCommand(SidebarSelection):
                 folder["file_exclude_patterns"] = []
             folder_path = folder['path']
             if folder_path == '.':
-                print("dot handler")
                 folder_path = os.path.normpath(os.path.join(os.path.dirname(project_file_name), folder_path))
             for f in files:
                 if f.find(folder_path) == 0 and f not in folder["file_exclude_patterns"]:
