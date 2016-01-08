@@ -23,7 +23,6 @@ class ExcludePathIndexCommand(SidebarSelectionCommand):
         excluded = prefs.get("index_exclude_patterns", [])
         excluded.extend(files)
         excluded.extend([os.path.join(d, '*') for d in folders])
-        print(excluded)
         prefs.set("index_exclude_patterns", list(set(excluded)))
         sublime.save_settings("Preferences.sublime-settings")
 
