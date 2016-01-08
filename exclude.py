@@ -36,15 +36,21 @@ class ExcludePathProjectCommand(SidebarSelection):
                 folder["folder_exclude_patterns"] = []
             if "file_exclude_patterns" not in folder:
                 folder["file_exclude_patterns"] = []
-            project_path = folder['path']
-            if project_path == '.':
-                project_path = os.path.dirname(project_file_name)
+            folder_path = folder['path']
+            if folder_path == '.':
+                print("dot handler")
+                folder_path = os.path.normpath(os.path.join(os.path.dirname(project_file_name), folder_path))
             for f in files:
-                if f.find(project_path) == 0 and f not in folder["file_exclude_patterns"]:
+                if f.find(folder_path) == 0 and f not in folder["file_exclude_patterns"]:
                     folder["file_exclude_patterns"].append(f)
             for d in folders:
-                if d.find(project_path) == 0 and d not in folder["folder_exclude_patterns"]:
+                if os.path.samefile(folder['path'], d):
+                    continue
+                if d.find(folder_path) == 0 and d not in folder["folder_exclude_patterns"]:
                     folder["folder_exclude_patterns"].append(d)
+            # unique it
+            folder["file_exclude_patterns"] = list(set(folder["file_exclude_patterns"]))
+            folder["folder_exclude_patterns"] = list(set(folder["folder_exclude_patterns"]))
         self.window.set_project_data(data)
 
 
