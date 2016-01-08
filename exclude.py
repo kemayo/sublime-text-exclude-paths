@@ -4,7 +4,7 @@ import sublime
 import sublime_plugin
 
 
-class SidebarSelectionCommand(sublime_plugin.WindowCommand):
+class SidebarSelection(sublime_plugin.WindowCommand):
     def run(self, paths=None):
         paths = paths or []
         files = []
@@ -17,7 +17,7 @@ class SidebarSelectionCommand(sublime_plugin.WindowCommand):
         self.handle(files, folders)
 
 
-class ExcludePathIndexCommand(SidebarSelectionCommand):
+class ExcludePathIndexCommand(SidebarSelection):
     def handle(self, files, folders):
         prefs = sublime.load_settings("Preferences.sublime-settings")
         excluded = prefs.get("index_exclude_patterns", [])
@@ -27,7 +27,7 @@ class ExcludePathIndexCommand(SidebarSelectionCommand):
         sublime.save_settings("Preferences.sublime-settings")
 
 
-class ExcludePathProjectCommand(SidebarSelectionCommand):
+class ExcludePathProjectCommand(SidebarSelection):
     def handle(self, files, folders):
         data = self.window.project_data()
         project_file_name = self.window.project_file_name()
