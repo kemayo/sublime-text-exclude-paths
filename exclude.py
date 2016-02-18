@@ -37,13 +37,14 @@ class ExcludePathProjectCommand(SidebarSelection, sublime_plugin.WindowCommand):
             if "file_exclude_patterns" not in folder:
                 folder["file_exclude_patterns"] = []
             folder_path = folder['path']
-            if folder_path == '.':
+            if not os.path.exists(folder_path):
                 folder_path = os.path.normpath(os.path.join(os.path.dirname(project_file_name), folder_path))
             for f in files:
                 if f.find(folder_path) == 0 and f not in folder["file_exclude_patterns"]:
                     folder["file_exclude_patterns"].append(f)
             for d in folders:
-                if os.path.samefile(folder['path'], d):
+                if os.path.samefile(folder_path, d):
+                    # don't allow the root of the project to be ignored
                     continue
                 if d.find(folder_path) == 0 and d not in folder["folder_exclude_patterns"]:
                     folder["folder_exclude_patterns"].append(d)
