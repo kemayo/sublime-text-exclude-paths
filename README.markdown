@@ -16,3 +16,13 @@ The easiest way to install this is with [Package Control](http://wbond.net/subli
  * Type "Exclude Paths" when the list appears to find it.
 
 Package Control will automatically keep Exclude Paths up to date with the latest version.
+
+## Questions
+
+### How is this stored?
+
+It depends on how you opened the project. If you used the `Open Project...` menu item to open a `.sublime-project` file, changes will be saved to the project file. If you've just opened a folder (via `subl`, the `Open...` menu item, or dragging it onto Sublime), Sublime Text will remember it internally, but won't persist that across openings.
+
+### Why don't my changes to `Preferences.sublime-settings` apply now?
+
+Higher-priority settings in Sublime Text (like those in project data) override lower priority settings (like those in your generic preferences file). As such, anything we set in the project file will completely replace your default settings.
