@@ -26,3 +26,5 @@ It depends on how you opened the project. If you used the `Open Project...` menu
 ### Why don't my changes to `Preferences.sublime-settings` apply now?
 
 Higher-priority settings in Sublime Text (like those in project data) override lower priority settings (like those in your generic preferences file). As such, anything we set in the project file will completely replace your default settings.
+
+When per-project exclusions are changed, we do copy the core ones in. However, this only happens on-change, so drift can occur when you edit your core settings.
